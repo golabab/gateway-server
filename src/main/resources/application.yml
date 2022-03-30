@@ -1,0 +1,31 @@
+server:
+  port: ${GATEWAY_SERVER_PORT}
+  address: ${GATEWAY_SERVER_ADDRESS}
+  shutdown: graceful
+spring:
+  rabbitmq:
+    host: ${MQ_SERVER_ADDRESS}
+    port: ${MQ_SERVER_PORT}
+    username: ${MQ_SERVER_USERNAME}
+    password: ${MQ_SERVER_PASSWORD}
+    ssl:
+      enabled: true
+  application.name: gateway-server
+  config:
+    import: "optional:configserver:${CONFIG_SERVER_URL}"
+  cloud:
+    config:
+      uri: ${CONFIG_SERVER_URL}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh
+eureka:
+  instance:
+    hostname: ${EUREKA_SERVER_ADDRESS}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_DEFAULT_ZONE}
